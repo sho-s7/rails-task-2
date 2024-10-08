@@ -19,6 +19,7 @@
               <%= current_user.name %>
             </button>
             <ul class="dropdown-menu" aria-labelledby="btnOpenMenu">
+              <li><%= link_to "アカウント設定", users_show_account_path, class:"dropdown-item" %></li>
               <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
             </ul>
           </div>
