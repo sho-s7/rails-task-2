@@ -5,12 +5,12 @@
     <div class="col-10">
       <div class="d-flex justify-content-between">
         <h3>アカウント</h3>
-        <p>編集</p>
+        <%= link_to "編集", edit_user_registration_path %>
       </div>
       <table class="table table-borderless">
         <tr>
           <th>メールアドレス</th>
-          <td><%= current_user.email %></td>
+          <td><%= @user.email %></td>
         </tr>
         <tr>
           <th>パスワード</th>

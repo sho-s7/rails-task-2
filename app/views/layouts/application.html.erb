@@ -16,6 +16,7 @@
         <% if user_signed_in? %>
           <div class="dropdown">
             <button id="btnOpenMenu" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= image_tag current_user.avatar, class:"header-avatar" %>
               <%= current_user.name %>
             </button>
             <ul class="dropdown-menu" aria-labelledby="btnOpenMenu">

@@ -1,43 +1,38 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="container">
+  <h3>設定</h3>
+  <div class="row">
+    <%= render "shared/user_menu" %>
+    <div class="form-wrapper col-10">
+      <h3>アカウント</h3>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "users/shared/error_messages", resource: resource %>
+        <div class="form-group mb-3">
+          <%= f.label :email, "メールアドレス", class:"form-label" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
+        </div>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+        <div class="form-group mb-3">
+          <%= f.label :password, "変更後パスワード", class:"form-label" %> <i>(変更する場合のみ)</i><br />
+          <%= f.password_field :password, autocomplete: "new-password", class:"form-control" %>
+          <% if @minimum_password_length %>
+            <em>※<%= @minimum_password_length %>文字以上</em>
+          <% end %>
+        </div>
+        <div class="form-group mb-3">
+          <%= f.label :password_confirmation, "確認用パスワード", class:"form-label" %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
+        </div>
+        <div class="form-group mb-3">
+          <%= f.label :current_password, "現在のパスワード", class:"form-label" %><br />
+          <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control" %>
+        </div>
+        <div class="d-flex justify-content-end gap-2">
+          <%= link_to "キャンセル", users_show_account_path, class:"btn btn-secondary" %>
+          <%= f.submit "保存", class:"btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+</div>
