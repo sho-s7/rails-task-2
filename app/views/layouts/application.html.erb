@@ -16,11 +16,19 @@
         <% if user_signed_in? %>
           <div class="dropdown">
             <button id="btnOpenMenu" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <%= image_tag current_user.avatar, class:"header-avatar" %>
+              <% if current_user.avatar.attached? %>
+                <%= image_tag current_user.avatar, class:"header-avatar" %>
+              <% else %>
+                <%= image_tag "default-avatar.png", class:"header-avatar" %>
+              <% end %>
               <%= current_user.name %>
             </button>
             <ul class="dropdown-menu" aria-labelledby="btnOpenMenu">
+              <li><%= link_to "施設の新規登録", new_room_path, class:"dropdown-item" %></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= link_to "登録済み一覧", rooms_own_path, class:"dropdown-item" %></li>
               <li><%= link_to "アカウント設定", users_show_account_path, class:"dropdown-item" %></li>
+              <li><hr class="dropdown-divider"></li>
               <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
             </ul>
           </div>
