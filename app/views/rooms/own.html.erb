@@ -21,7 +21,7 @@
               <%= image_tag "default-room.png", class:"own-room-img" %>
             <% end %>
           </td>
-          <td><%= room.name %></td>
+          <td><%= link_to room.name, room_path(room.id) %></td>
           <td><%= room.detail %></td>
           <td><%= number_to_currency(room.fee, unit: "¥", precision: 0, format: "%u%n~") %></td>
           <td><%= room.created_at.to_s(:date_jp) %></td>

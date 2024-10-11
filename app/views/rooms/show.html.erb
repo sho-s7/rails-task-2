@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="room-detail-header d-flex justify-content-between">
+    <%= link_to "←戻る", :back %>
+    <%= link_to "編集", edit_room_path %>
+  </div>
+  <div class="row">
+    <% if @room.avatar.attached? %>
+      <%= image_tag @room.avatar, class:"col-5" %>
+    <% else %>
+      <%= image_tag "default-room", class:"col-5"%>
+    <% end %>
+    <div class="col-7 room-detail-wrapper">
+      <div class="d-flex justify-content-between fs-3">
+        <p><%= @room.name %></p>
+        <p class="room-detail-fee"><%= number_to_currency(@room.fee, unit: "¥", precision: 0, format: "%u%n~") %></p>
+      </div>
+      <p><%= @room.address %></p>
+      <p><%= @room.detail %></p>
+    </div>
+  </div>
+</div>
