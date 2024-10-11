@@ -1,6 +1,6 @@
 <div class="container">
   <h3>登録済み一覧</h3>
-  <table class="table">
+  <table class="table own-room-table">
     <thead>
       <tr>
         <th>画像</th>
@@ -13,7 +13,7 @@
     </thead>
     <tbody>
       <% @rooms.each do |room| %>
-        <tr>
+        <tr class="align-items-center">
           <td>
             <% if room.avatar.attached? %>
               <%= image_tag room.avatar, class:"own-room-img" %>
@@ -25,7 +25,15 @@
           <td><%= room.detail %></td>
           <td><%= number_to_currency(room.fee, unit: "¥", precision: 0, format: "%u%n~") %></td>
           <td><%= room.created_at.to_s(:date_jp) %></td>
-          <td></td>
+          <td>
+            <button id="btnOpenMenu" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="btnOpenMenu">
+              <li><%= link_to "編集", edit_room_path(room.id), class:"dropdown-item" %></li>
+              <li><%= link_to "施設を削除", room_path(room.id), method: :delete, class:"dropdown-item text-danger" %></li>
+            </ul>
+          </td>
         </tr>
       <% end %>
     </tbody>
