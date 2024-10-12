@@ -22,9 +22,17 @@ class ReservationsController < ApplicationController
   end
 
   def edit
+    @reservation = Reservation.find(params[:id])
   end
 
   def update
+    @reservation = Reservation.find(params[:id])
+    if @reservation.update(reservation_params)
+      flash[:notice] = "再予約しました"
+      redirect_to reservations_path
+    else
+      render "edit"
+    end
   end
 
   def destroy
