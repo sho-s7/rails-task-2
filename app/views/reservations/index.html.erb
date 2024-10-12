@@ -1,0 +1,45 @@
+<div class="container">
+  <h3>予約済み一覧</h3>
+  <table class="table reservation-room-table">
+    <thead>
+      <tr>
+        <th>画像</th>
+        <th>施設名</th>
+        <th>紹介文</th>
+        <th>合計料金</th>
+        <th>チェックイン</th>
+        <th>チェックアウト</th>
+        <th>予約確定日時</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reservations.each do |reservation| %>
+        <tr class="align-items-center">
+          <td>
+            <% if reservation.room.avatar.attached? %>
+              <%= image_tag reservation.room.avatar, class:"reservation-room-img" %>
+            <% else %>
+              <%= image_tag "default-room.png", class:"reservation-room-img" %>
+            <% end %>
+          </td>
+          <td><%= link_to reservation.room.name, room_path(reservation.room.id) %></td>
+          <td><%= reservation.room.detail %></td>
+          <td><%= number_to_currency(reservation.room.fee * reservation.number, unit: "¥", precision: 0, format: "%u%n~") %></td>
+          <td><%= reservation.check_in.to_s(:date_jp) %></td>
+          <td><%= reservation.check_out.to_s(:date_jp) %></td>
+          <td><%= reservation.created_at.to_s(:datetime_jp) %></td>
+          <td>
+            <button id="btnOpenMenu" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="btnOpenMenu">
+              <li><%= link_to "編集", edit_reservation_path(reservation.id), class:"dropdown-item" %></li>
+              <li><%= link_to "施設を削除", reservation_path(reservation.id), method: :delete, class:"dropdown-item text-danger" %></li>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

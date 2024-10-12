@@ -2,7 +2,7 @@
   <div class="room-detail-header d-flex justify-content-between">
     <%= link_to "←戻る", :back %>
     <% if @room.user_id == @user.id %>
-      <%= link_to "編集", edit_room_path %>
+      <%= link_to "編集", edit_room_path(@room.id) %>
     <% end %>
   </div>
   <div class="row">
@@ -18,6 +18,29 @@
       </div>
       <p><%= @room.address %></p>
       <p><%= @room.detail %></p>
+      <div class="reservation-form">
+        <%= form_with(model: [@room, @reservation]) do |f| %>
+          <div class="row mb-4">
+            <div class="form-group col-4">
+              <%= f.label :check_in, "チェックイン", class:"form-label" %>
+              <%= f.date_field :check_in, placeholder:"---- / -- / --", class:"form-control" %>
+            </div>
+            <div class="form-group col-4">
+              <%= f.label :check_out, "チェックアウト", class:"form-label" %>
+              <%= f.date_field :check_out, placeholder:"---- / -- / --", class:"form-control" %>
+            </div>
+            <div class="form-group col-4">
+              <%= f.label :number, "人数", class:"form-label" %>
+              <%= f.number_field :number, placeholder:"0", class:"form-control" %>
+            </div>
+            <%= f.hidden_field :room_id, value: @room.id %>
+            <%= f.hidden_field :user_id, value: @user.id %>
+          </div>
+          <div class="form-group col-12">
+            <%= f.submit "予約する", class:"btn btn-primary w-100" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

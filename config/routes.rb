@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get 'home/show'
   get 'rooms/own', to: 'rooms#own'
   devise_for :users
-  resources :rooms
+  resources :rooms do
+    resources :reservations, only: [:new, :create]
+  end
+  resources :reservations
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
