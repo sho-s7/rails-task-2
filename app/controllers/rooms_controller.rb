@@ -3,6 +3,15 @@ class RoomsController < ApplicationController
   before_action :set_user
 
   def index
+    if params[:address].present? && params[:keyword].present?
+      @rooms = Room.where("address LIKE ? AND (name LIKE ? OR detail LIKE ?)", "%#{params[:address]}%", "%#{params[:keyword]}%", "%#{params[:keyword]}")
+    elsif params[:address].present?
+      @rooms = Room.where("address LIKE ?", "%#{params[:address]}%")
+    elsif params[:keyword].present?
+      @rooms = Room.where("name LIKE ? OR detail LIKE ?", "%#{params[:keyword]}%", "%#{params[:keyword]}")
+    else
+      @rooms = Room.all
+    end
   end
 
   def own

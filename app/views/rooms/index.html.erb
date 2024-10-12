@@ -1,2 +1,40 @@
-<h1>Rooms#index</h1>
-<p>Find me in app/views/rooms/index.html.erb</p>
+<div class="room-index-form mb-4">
+  <%= form_with(url: rooms_path, method: :get, local: true) do %>
+    <div class="row justify-content-center">
+      <div class="form-group col-md-5">
+        <%= select_tag :address, options_for_select([["エリア名を選択してください", ""], ["東京", "東京"], ["大阪", "大阪"], ["京都", "京都"], ["札幌", "札幌"]], params[:address]), placeholder:"エリア名を選択してください", class: "form-control" %>
+      </div>
+      <div class="form-group col-md-5">
+        <%= text_field_tag :keyword, params[:keyword], placeholder:"キーワードを入力", class: "form-control" %>
+      </div>
+      <div class="form-group col-md-1">
+        <%= submit_tag "検索", class:"btn btn-primary text-center" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="container">
+  <div class="room-index-count">
+    <p><span class="fs-3"><%= @rooms.count %></span> 件が見つかりました。</p>
+  </div>
+  <div class="room-list">
+    <ul class="row">
+      <% @rooms.each do |room| %>
+        <div class="col-12 col-sm-6 col-md-4 mb-4 card">
+          <% if room.avatar.attached? %>
+            <%= image_tag room.avatar, class:"rooms-index-img card-img-top" %>
+          <% else %>
+            <%= image_tag "default-room", class:"rooms-index-img card-img-top" %>
+          <% end %>
+          <div class="card-body">
+            <p><%= room.name %></p>
+            <p><%= room.address %></p>
+            <p><%= room.detail %></p>
+            <p><%= room.fee %></p>
+            <%= link_to "詳細はこちら", room_path(room.id), class:"btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </ul>
+  </div>
+</div>
