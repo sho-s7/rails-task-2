@@ -1,7 +1,7 @@
 <div class="container pt-4 pb-4">
   <div class="room-detail-header d-flex justify-content-between">
     <%= link_to "←戻る", :back %>
-    <% if @room.user_id == @user.id %>
+    <% if user_signed_in? && @room.user_id == @user.id %>
       <%= link_to "編集", edit_room_path(@room.id) %>
     <% end %>
   </div>
@@ -35,10 +35,16 @@
               <%= f.number_field :number, placeholder:"0", class:"form-control" %>
             </div>
             <%= f.hidden_field :room_id, value: @room.id %>
-            <%= f.hidden_field :user_id, value: @user.id %>
+            <% if user_signed_in? %>
+              <%= f.hidden_field :user_id, value: @user.id %>
+            <% end %>
           </div>
           <div class="form-group col-12">
-            <%= f.submit "予約する", class:"btn btn-primary w-100" %>
+            <% if user_signed_in? %>
+              <%= f.submit "予約する", class:"btn btn-primary w-100" %>
+            <% else %>
+              <%= link_to "ログイン", new_user_session_path, class:"btn btn-primary w-100" %>
+            <% end %>
           </div>
         <% end %>
       </div>
