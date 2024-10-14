@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pt-4 pb-4">
   <h3>登録済み一覧</h3>
   <table class="table own-room-table">
     <thead>
@@ -23,7 +23,7 @@
           </td>
           <td><%= link_to room.name, room_path(room.id) %></td>
           <td><%= room.detail %></td>
-          <td><%= number_to_currency(room.fee, unit: "¥", precision: 0, format: "%u%n~") %></td>
+          <td>¥<%= room.fee.to_s(:delimited) %>~</td>
           <td><%= room.created_at.to_s(:date_jp) %></td>
           <td>
             <button id="btnOpenMenu" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">

@@ -2,6 +2,7 @@
   <div class="row justify-content-center">
     <div class="form-wrapper col-md-7">
       <h3>再予約する</h3>
+      <%= render "shared/error_message", obj: @reservation %>
       <% if @reservation.room.avatar.attached? %>
         <%= image_tag @reservation.room.avatar, class:"reservation-edit-img w-100 mb-4" %>
       <% else %>
@@ -9,7 +10,7 @@
       <% end %>
       <div class="d-flex justify-content-between fs-3">
         <p><%= @reservation.room.name %></p>
-        <p class="room-detail-fee"><%= number_to_currency(@reservation.room.fee, unit: "¥", precision: 0, format: "%u%n~") %></p>
+        <p class="room-detail-fee">¥<%= @reservation.room.fee.to_s(:delimited) %>~</p>
       </div>
       <p><%= @reservation.room.address %></p>
       <p><%= @reservation.room.detail %></p>

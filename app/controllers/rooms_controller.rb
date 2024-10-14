@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!  # ユーザーがログインしているか確認
+  before_action :authenticate_user!
   before_action :set_user
 
   def index
@@ -25,9 +25,11 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new(room_params)
     if @room.save
+      flash[:primary] = "施設が作成されました"
       redirect_to room_path(@room.id)
     else
-      redirect_to new_room_path
+      flash.now[:danger] = "施設の作成に失敗しました"
+      render :new
     end
   end
 
@@ -43,9 +45,10 @@ class RoomsController < ApplicationController
   def update
     @room = Room.find(params[:id])
     if @room.update(room_params)
-      flash[:notice] = "施設情報が更新されました"
+      flash[:primary] = "施設情報が更新されました"
       redirect_to room_path
     else
+      flash.now[:danger] = "施設情報の更新に失敗しました"
       render "edit"
     end
   end
@@ -53,7 +56,7 @@ class RoomsController < ApplicationController
   def destroy
     @room = Room.find(params[:id])
     @room.destroy
-    flash[:notice] = "施設が削除されました"
+    flash[:primary] = "施設が削除されました"
     redirect_to rooms_own_path
   end
 

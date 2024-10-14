@@ -1,0 +1,14 @@
+ja:
+  devise:
+    failure:
+      unauthenticated: "ログインしてください。"
+      unconfirmed: "アカウントの本人確認が必要です。"
+      locked: "アカウントはロックされています。"
+      invalid: "Eメールまたはパスワードが違います。"
+      invalid_token: "トークンが無効です。"
+      expired: "トークンの有効期限が切れています。"
+      not_found_in_database: "Eメールまたはパスワードが違います。"
+      already_authenticated: "すでにログインしています。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"

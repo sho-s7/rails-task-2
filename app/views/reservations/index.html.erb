@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pt-4 pb-4">
   <h3>予約済み一覧</h3>
   <table class="table reservation-room-table">
     <thead>
@@ -25,7 +25,7 @@
           </td>
           <td><%= link_to reservation.room.name, room_path(reservation.room.id) %></td>
           <td><%= reservation.room.detail %></td>
-          <td><%= number_to_currency(reservation.room.fee * reservation.number, unit: "¥", precision: 0, format: "%u%n~") %></td>
+          <td>¥<%= (reservation.room.fee * reservation.number).to_s(:delimited) %>~</td>
           <td><%= reservation.check_in.to_s(:date_jp) %></td>
           <td><%= reservation.check_out.to_s(:date_jp) %></td>
           <td><%= reservation.created_at.to_s(:datetime_jp) %></td>
@@ -34,7 +34,7 @@
               <i class="fa-solid fa-ellipsis-vertical"></i>
             </button>
             <ul class="dropdown-menu" aria-labelledby="btnOpenMenu">
-              <li><%= link_to "編集", edit_reservation_path(reservation.id), class:"dropdown-item" %></li>
+              <li><%= link_to "再予約", edit_reservation_path(reservation.id), class:"dropdown-item" %></li>
               <li><%= link_to "施設を削除", reservation_path(reservation.id), method: :delete, class:"dropdown-item text-danger" %></li>
             </ul>
           </td>

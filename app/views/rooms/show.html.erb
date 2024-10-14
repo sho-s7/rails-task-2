@@ -1,10 +1,11 @@
-<div class="container">
+<div class="container pt-4 pb-4">
   <div class="room-detail-header d-flex justify-content-between">
     <%= link_to "←戻る", :back %>
     <% if @room.user_id == @user.id %>
       <%= link_to "編集", edit_room_path(@room.id) %>
     <% end %>
   </div>
+  <%= render "shared/error_message", obj: @reservation %>
   <div class="row">
     <% if @room.avatar.attached? %>
       <%= image_tag @room.avatar, class:"col-5" %>
@@ -14,7 +15,7 @@
     <div class="col-7 room-detail-wrapper">
       <div class="d-flex justify-content-between fs-3">
         <p><%= @room.name %></p>
-        <p class="room-detail-fee"><%= number_to_currency(@room.fee, unit: "¥", precision: 0, format: "%u%n~") %></p>
+        <p class="room-detail-fee">¥<%= @room.fee.to_s(:delimited) %>~</p>
       </div>
       <p><%= @room.address %></p>
       <p><%= @room.detail %></p>

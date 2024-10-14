@@ -30,7 +30,7 @@
             <p><%= room.name %></p>
             <p><%= room.address %></p>
             <p><%= room.detail %></p>
-            <p><%= room.fee %></p>
+            <p>¥<%= room.fee.to_s(:delimited) %>~</p>
             <%= link_to "詳細はこちら", room_path(room.id), class:"btn btn-primary" %>
           </div>
         </div>
