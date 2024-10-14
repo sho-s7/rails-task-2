@@ -3,22 +3,30 @@ class ReservationsController < ApplicationController
   before_action :set_room, only: [:create]
 
   def index
-    @reservations = @user.reservations
+
+    if params[:room_id].present?
+      @room = Room.find(params[:room_id])
+      redirect_to room_path(@room)
+    else
+      @reservations = @user.reservations
+    end
   end
 
   def new
   end
 
   def create
+    @room = Room.find(params[:room_id])
     @reservation = Reservation.new(reservation_params)
     if @reservation.save
-      redirect_to room_path(@room.id)
+      redirect_to reservations_path
     else
       render "rooms/show"
     end
   end
 
   def show
+    redirect_to edit_reservation_path(params[:id])
   end
 
   def edit

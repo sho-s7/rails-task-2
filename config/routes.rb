@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   get 'home/show'
   get 'rooms/own', to: 'rooms#own'
   devise_for :users
+  get "users" => redirect("/users/sign_up")
   resources :rooms do
-    resources :reservations, only: [:new, :create]
+    resources :reservations, only: [:new, :create, :index]
   end
   resources :reservations
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
