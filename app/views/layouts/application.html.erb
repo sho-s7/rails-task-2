@@ -5,12 +5,44 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" rel="stylesheet">
   </head>
-
   <body>
+    <header>
+      <div class="header-wrapper d-flex justify-content-between align-items-center">
+        <%= link_to image_tag("https://rails-02-sample.herokuapp.com/assets/common/logo.png", class:"header-logo"), root_path %>
+        <% if user_signed_in? %>
+          <div class="dropdown">
+            <button id="btnOpenMenu" class="dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
+              <% if current_user.avatar.attached? %>
+                <%= image_tag current_user.avatar, class:"header-avatar" %>
+              <% else %>
+                <%= image_tag "default-avatar.png", class:"header-avatar" %>
+              <% end %>
+              <%= current_user.name %>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="btnOpenMenu">
+              <li><%= link_to "施設の新規登録", new_room_path, class:"dropdown-item" %></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= link_to "予約済み一覧", reservations_path, class:"dropdown-item" %></li>
+              <li><%= link_to "登録済み一覧", rooms_own_path, class:"dropdown-item" %></li>
+              <li><%= link_to "アカウント設定", users_show_account_path, class:"dropdown-item" %></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
+            </ul>
+          </div>
+        <% else %>
+          <div>
+            <%= link_to "ログイン", new_user_session_path, class:"btn btn-light" %>
+            <%= link_to "新規登録", new_user_registration_path, class:"btn btn-success" %>
+          </div>
+        <% end %>
+      </div>
+    </header>
+    <%= render 'shared/flash_message' %>
     <%= yield %>
   </body>
 </html>

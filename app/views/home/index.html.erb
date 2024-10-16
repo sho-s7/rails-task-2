@@ -1,0 +1,18 @@
+<div class="container pt-4 pb-4">
+  <div class="top-search-form row justify-content-center">
+    <div class="col-6">
+      <h3>施設を検索</h3>
+      <%= form_with(url: rooms_path, method: :get, local: true) do %>
+        <div class="form-group mb-2">
+          <%= select_tag :address, options_for_select([["エリア名を選択してください", ""], ["東京", "東京"], ["大阪", "大阪"], ["京都", "京都"], ["札幌", "札幌"]], params[:address]), placeholder:"エリア名を入力", class: "form-control" %>
+        </div>
+        <div class="form-group mb-2">
+          <%= text_field_tag :keyword, params[:keyword], placeholder:"キーワードを入力", class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= submit_tag "検索", class:"btn btn-primary w-100" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

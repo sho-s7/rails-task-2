@@ -1,0 +1,33 @@
+<div class="container pt-4 pb-4">
+  <h3>設定</h3>
+  <div class="row">
+    <%= render "shared/user_menu" %>
+    <div class="form-wrapper col-10">
+      <h3>プロフィール</h3>
+      <%= render "shared/error_message", obj: @user %>
+      <%= form_with model: @user, url: users_edit_profile_path do |f| %>
+        <div class="form-group mb-3">
+          <%= f.label :avatar, "アイコン画像", class:"form-label" %><br />
+          <% if @user.avatar.attached? %>
+            <%= image_tag @user.avatar, class:"profile-avatar" %>
+          <% else %>
+            <%= image_tag "default-avatar.png", class:"profile-avatar" %>
+          <% end %>
+          <%= f.file_field :avatar, class:"form-control" %>
+        </div>
+        <div class="form-group mb-3">
+          <%= f.label :name, "ユーザー名", class:"form-label" %><br />
+          <%= f.text_field :name, value: @user.name, class:"form-control" %>
+        </div>
+        <div class="form-group mb-3">
+          <%= f.label :introduction, "自己紹介", class:"form-label" %><br />
+          <%= f.text_field :introduction, value: @user.introduction, class:"form-control" %>
+        </div>
+        <div class="d-flex justify-content-end gap-2">
+          <%= link_to "キャンセル", users_show_profile_path, class:"btn btn-secondary" %>
+          <%= f.submit "保存", class:"btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

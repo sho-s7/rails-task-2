@@ -1,0 +1,32 @@
+<div class="container pt-4 pb-4">
+  <h3>設定</h3>
+  <div class="user-infomation row">
+    <%= render "shared/user_menu" %>
+    <div class="col-10">
+      <div class="d-flex justify-content-between">
+        <h3>プロフィール</h3>
+        <%= link_to "編集", users_edit_profile_path %>
+      </div>
+      <table class="table table-borderless">
+        <tr>
+          <th>アイコン画像</th>
+          <td>
+            <% if @user.avatar.attached? %>
+              <%= image_tag @user.avatar, class:"profile-avatar" %>
+            <% else %>
+              <%= image_tag 'default-avatar.png', class:"profile-avatar" %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>ユーザー名</th>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <th>自己紹介</th>
+          <td><%= @user.introduction %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

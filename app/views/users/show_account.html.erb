@@ -1,0 +1,22 @@
+<div class="container pt-4 pb-4">
+  <h3>設定</h3>
+  <div class="user-infomation row">
+    <%= render "shared/user_menu" %>
+    <div class="col-10">
+      <div class="d-flex justify-content-between">
+        <h3>アカウント</h3>
+        <%= link_to "編集", edit_user_registration_path %>
+      </div>
+      <table class="table table-borderless">
+        <tr>
+          <th>メールアドレス</th>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <th>パスワード</th>
+          <td>*********</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
