@@ -1,0 +1,36 @@
+<div class="container pt-4 pb-4">
+  <div class="row justify-content-center">
+    <div class="form-wrapper col-md-7">
+      <h3>予約内容の確認</h3>
+      <div class="d-flex justify-content-between fs-4">
+        <p>チェックイン</p>
+        <p><%= @reservation.check_in.to_s(:date_jp) %></p>
+      </div>
+      <div class="d-flex justify-content-between fs-4">
+        <p>チェックアウト</p>
+        <p><%= @reservation.check_in.to_s(:date_jp) %></p>
+      </div>
+      <div class="d-flex justify-content-between fs-4">
+        <p>日数</p>
+        <p><%= "%.0f" % ((@reservation.check_out - @reservation.check_in) / (60 * 60 * 24)).to_i %></p>
+      </div>
+      <div class="d-flex justify-content-between fs-4">
+        <p>人数</p>
+        <p><%= @reservation.number %>人</p>
+      </div>
+      <div class="d-flex justify-content-between fs-4">
+        <p>お支払い金額</p>
+        <p>¥<%= (@room.fee * @reservation.number * ((@reservation.check_out - @reservation.check_in) / (60 * 60 * 24))).to_i.to_s(:delimited) %></p>
+      </div>
+      <p>上記内容で正しければ「確定」ボタンを押してください。</p>
+      <%= form_with(model: [@room, @reservation], url: reservation_path(@reservation.id), method: :patch) do |f| %>
+        <%= f.hidden_field :check_in %>
+        <%= f.hidden_field :check_out %>
+        <%= f.hidden_field :number %>
+        <%= f.hidden_field :room_id %>
+        <%= f.hidden_field :user_id %>
+        <%= f.submit "予約を確定する", class: "btn btn-primary w-100" %>
+      <% end %>
+    </div>
+  </div>
+</div>

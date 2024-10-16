@@ -1,9 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :set_user
-  before_action :set_room, only: [:create]
 
   def index
-
     if params[:room_id].present?
       @room = Room.find(params[:room_id])
       redirect_to room_path(@room)
@@ -16,14 +14,35 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @room = Room.find(params[:room_id])
+    @room = Room.find(params[:reservation][:room_id])
     @reservation = Reservation.new(reservation_params)
-    if @reservation.save
+    if params[:back]
+      render "new"
+    elsif @reservation.save
       flash[:primary] = "施設の予約が完了しました"
       redirect_to reservations_path
     else
       flash.now[:danger] = "施設の予約に失敗しました"
       render "rooms/show"
+    end
+  end
+
+  def confirm
+    @room = Room.find(params[:reservation][:room_id])
+    @reservation = Reservation.new(reservation_params)
+
+    if @reservation.invalid?
+      render "rooms/show"
+    end
+  end
+
+  def edit_confirm
+    @room = Room.find(params[:reservation][:room_id])
+    @reservation = Reservation.find(params[:id])
+    @reservation.attributes = reservation_params
+
+    if @reservation.invalid?
+      render "edit"
     end
   end
 
@@ -57,10 +76,6 @@ class ReservationsController < ApplicationController
 
   def set_user
     @user = current_user
-  end
-
-  def set_room
-    @room = Room.find(params[:room_id])
   end
 
   def reservation_params

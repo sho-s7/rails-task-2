@@ -8,7 +8,7 @@ class Reservation < ApplicationRecord
   validates :number, presence: true, numericality: {greater_than_or_equal_to: 1}
 
   def check_in_check
-    if check_in.present? && check_out.present? && check_in < Time.zone.today
+    if check_in.present? && check_out.present? && check_in < Time.zone.now.beginning_of_day
       errors.add(:check_in, "日は本日以降に設定してください")
     end
   end

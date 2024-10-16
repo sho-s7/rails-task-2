@@ -20,7 +20,7 @@
       <p><%= @room.address %></p>
       <p><%= @room.detail %></p>
       <div class="reservation-form">
-        <%= form_with(model: [@room, @reservation]) do |f| %>
+        <%= form_with(model: [@room, @reservation], url: confirm_reservations_path, method: :post) do |f| %>
           <div class="row mb-4">
             <div class="form-group col-4">
               <%= f.label :check_in, "チェックイン", class:"form-label" %>

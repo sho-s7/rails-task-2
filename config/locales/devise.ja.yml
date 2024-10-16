@@ -12,3 +12,7 @@ ja:
     sessions:
       signed_in: "ログインしました。"
       signed_out: "ログアウトしました。"
+    registrations:
+      signed_up: "アカウント登録が完了しました。"
+      user:
+        signed_up: "アカウントの登録が完了しました。"

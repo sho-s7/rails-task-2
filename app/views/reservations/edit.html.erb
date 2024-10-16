@@ -14,7 +14,7 @@
       </div>
       <p><%= @reservation.room.address %></p>
       <p><%= @reservation.room.detail %></p>
-      <%= form_with model: @reservation do |f| %>
+      <%= form_with(model: @reservation, url: edit_confirm_reservation_path(@reservation.id), method: :post) do |f| %>
         <div class="form-group mb-3 row">
           <%= f.label :check_in, "チェックイン", class:"form-label col-form-label col-sm-3" %>
           <div class="col-sm-9">
@@ -33,6 +33,8 @@
             <%= f.number_field :number, class:"form-control" %>
           </div>
         </div>
+        <%= f.hidden_field :room_id, value: @reservation.room_id %>
+        <%= f.hidden_field :user_id, value: @user.id %>
         <div class="d-grid gap-2">
           <%= f.submit "再予約する", class:"btn btn-primary" %>
           <%= link_to "キャンセル", :back, class:"btn btn-secondary" %>
